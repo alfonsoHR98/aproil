@@ -1,6 +1,6 @@
 <div class="container">
   <header>Proveedores</header>
-  <form action="" method="post" class="form" id="form">
+  <form action="../FUNCTIONS/registroProveedores.php" method="post" class="form" id="form">
     <div class="form first">
       <div class="details">
         <span class="title">Alta de proveedor</span>
