@@ -1,6 +1,6 @@
 <div class="container">
   <header>Productos</header>
-  <form action="" method="post" class="form" id="form">
+  <form action="../FUNCTIONS/registroProductos.php" method="post" class="form" id="form">
     <div class="form first">
       <div class="details">
         <span class="title">Alta de producto</span>

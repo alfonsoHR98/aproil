@@ -19,14 +19,20 @@
           case "RegistroClientes":
             include '../PAGES/registroClientes.php';
             break;
-          case "RegistroProveedor":
+          case "RegistroProveedores":
             include '../PAGES/registroProveedores.php';
+            break;
+          case "EdicionProveedores":
+            include '../PAGES/edicionProveedores.php';
             break;
           case "RegistroProductos":
             include '../PAGES/registroProductos.php';
             break;
           case "EdicionClientes":
             include '../PAGES/edicionClientes.php';
+            break;
+          case "EdicionProductos":
+            include '../PAGES/edicionProductos.php';
             break;
           default:
             break;

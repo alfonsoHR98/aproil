@@ -12,7 +12,7 @@
       <li><a href="#">Productos</a>
         <ul>
           <li><a href="../PAGES/principal.php?opcion=RegistroProductos">Registro</a></li>
-          <li><a href="#">Modificación y eliminación</a></li>
+          <li><a href="../PAGES/principal.php?opcion=EdicionProductos">Modificación y eliminación</a></li>
         </ul>
       </li>
       <li><a href="#">Clientes</a>
@@ -23,8 +23,8 @@
       </li>
       <li><a href="#">Proveedores</a>
         <ul>
-          <li><a href="../PAGES/principal.php?opcion=RegistroProveedor">Registro</a></li>
-          <li><a href="#">Modificación y eliminación</a></li>
+          <li><a href="../PAGES/principal.php?opcion=RegistroProveedores">Registro</a></li>
+          <li><a href="../PAGES/principal.php?opcion=EdicionProveedores">Modificación y eliminación</a></li>
         </ul>
       </li>
       <li><a href="#">Inventario</a>
