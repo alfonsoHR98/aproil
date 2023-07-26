@@ -48,7 +48,7 @@
               <td>'.$rfc.'</td>
               <td>'.$correo.'</td>
               <td>'.$telefono.'</td>
-              <td><a href="#"><img src="../assets/edit.svg"></a></td>
+              <td><a href="../PAGES/editarCliente.php?id='.$id.'"><img src="../assets/edit.svg"></a></td>
               <td><a href="../FUNCTIONS/eliminarCliente.php?id='.$id.'" onclick="return confirmar()"><img src="../assets/eliminar.svg"></a></td>
             </tr>
             ';
