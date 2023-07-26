@@ -31,7 +31,7 @@
         <ul>
           <li><a href="#">Lotes</a>
             <ul>
-              <li><a href="#">Registrar lote</a>
+              <li><a href="../PAGES/principal.php?opcion=RegistroLotes">Registrar lote</a>
               <li><a href="#">Información de lote</a>
             </ul>
           </li>

@@ -19,15 +19,17 @@
           case "RegistroClientes":
             include '../PAGES/registroClientes.php';
             break;
+          case "EdicionClientes":
+            include '../PAGES/edicionClientes.php';
+            break;  
           case "RegistroProveedor":
             include '../PAGES/registroProveedores.php';
             break;
           case "RegistroProductos":
             include '../PAGES/registroProductos.php';
             break;
-          case "EdicionClientes":
-            include '../PAGES/edicionClientes.php';
-            break;
+          case "RegistroLotes":
+            include '../PAGES/registroLotes.php';
           default:
             break;
         }
