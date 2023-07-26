@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&family=Poppins:wght@300;400&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #ffdada;
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+/* Estilo de los formularios */
+.container {
+  position: relative;
+  max-width: 900px;
+  width: 100%;
+  border-radius: 6px;
+  padding: 30px;
+  margin: 0 15px;
+  background-color: #fff;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+  z-index: 0;
+}
+
+.container header {
+  position: relative;
+  font-size: 1.5em;
+  font-weight: 600;
+  color: #333;
+}
+
+.container header::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  height: 3px;
+  width: 27px;
+  border-radius: 8px;
+  background-color: #ff0000;
+}
+
+.container form {
+  position: relative;
+  margin-top: 15px;
+  min-height: auto;
+  background-color: #ffffff;
+}
+
+.container form .details {
+  margin-top: 30px;
+}
+
+.container form .title {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 6px 0;
+  color: #333;
+}
+
+.container form .fields {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+form .fields .input-field {
+  display: flex;
+  width: calc(100% / 3 - 15px);
+  flex-direction: column;
+  margin: 4px 0;
+}
+
+.input-field label {
+  font-size: 1em;
+  font-weight: 500;
+  color: #2e2e2e;
+}
+
+.input-field input {
+  outline: none;
+  font-size: .9em;
+  font-weight: 400;
+  color: #333;
+  border-radius: 5px;
+  border: 1px solid #aaa;
+  padding: 0 15px;
+  height: 42px;
+  margin: 8px 0;
+}
+
+.input-field input:is(:focus, :valid) {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+.container form button {
+  height: 45px;
+  max-width: 200px;
+  font-weight: 700;
+  width: 100%;
+  border: none;
+  outline: none;
+  background-color: #ff0000;
+  color: #fff;
+  border-radius: 5px;
+  margin: 25px 0;
+  transition: all 0.3s linear;
+  cursor: pointer;
+}
+
+form button:hover {
+  background-color: #8b0000;
+}
