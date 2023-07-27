@@ -38,11 +38,11 @@
 
 <link rel="stylesheet" href="../STYLES/principal.css">
 <div class="container">
-  <header>Clientes</header>
+  <header>Productos</header>
   <form action="<?=$_SERVER['PHP_SELF']?>" method="post" class="form" id="form">
     <div class="form first">
       <div class="details">
-        <span class="title">Edición de proveedor</span>
+        <span class="title">Edición de producto</span>
 
         <div class="fields">
 

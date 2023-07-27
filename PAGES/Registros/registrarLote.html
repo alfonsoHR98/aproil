@@ -1,0 +1,46 @@
+<html>
+<head>
+    <title>Formulario de Venta</title>
+</head>
+<body>
+    <h1>Registro de Venta</h1>
+    <form method="post" action="procesar_venta.php">
+        <label for="fecha">Fecha de Venta:</label>
+        <input type="date" id="fecha" name="fecha" required>
+        <br>
+        <h2>Productos</h2>
+        <div id="productos">
+            <div class="producto">
+                <label for="nombre_producto[]">Nombre del Producto:</label>
+                <input type="text" name="nombre_producto[]" required>
+                <label for="precio_producto[]">Precio:</label>
+                <input type="number" step="0.01" name="precio_producto[]" required>
+                <button type="button" onclick="eliminarProducto(this)">Eliminar</button>
+            </div>
+        </div>
+        <button type="button" onclick="agregarProducto()">Agregar Producto</button>
+        <br>
+        <button type="submit">Registrar Venta</button>
+    </form>
+
+    <script>
+        function agregarProducto() {
+            var productosDiv = document.getElementById("productos");
+            var nuevoProductoDiv = document.createElement("div");
+            nuevoProductoDiv.innerHTML = `
+                <label for="nombre_producto[]">Nombre del Producto:</label>
+                <input type="text" name="nombre_producto[]" required>
+                <label for="precio_producto[]">Precio:</label>
+                <input type="number" step="0.01" name="precio_producto[]" required>
+                <button type="button" onclick="eliminarProducto(this)">Eliminar</button>
+            `;
+            productosDiv.appendChild(nuevoProductoDiv);
+        }
+
+        function eliminarProducto(elemento) {
+            var productoDiv = elemento.parentElement;
+            productoDiv.remove();
+        }
+    </script>
+</body>
+</html>
