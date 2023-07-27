@@ -1,6 +1,6 @@
 <div class="container">
   <header>Clientes</header>
-  <form action="../FUNCTIONS/registroClientes.php" method="post" class="form" id="form">
+  <form action="./../FUNCTIONS/Registrar/registroClientes.php" method="post" class="form" id="form">
     <div class="form first">
       <div class="details">
         <span class="title">Alta de cliente</span>

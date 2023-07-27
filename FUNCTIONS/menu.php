@@ -8,7 +8,7 @@
   <nav class="navigation">
 
     <ul>
-      <li><a href="../PAGES/principal.php">Inicio</a></li>
+      <li><a href="./principal.php">Inicio</a></li>
       <li><a href="#">Productos</a>
         <ul>
           <li><a href="../PAGES/principal.php?opcion=RegistroProductos">Registro</a></li>

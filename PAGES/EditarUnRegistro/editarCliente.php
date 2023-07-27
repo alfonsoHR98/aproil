@@ -1,46 +1,46 @@
 <?php 
-  include('../FUNCTIONS/conn.php');
+  include '../../FUNCTIONS/conn.php';
 
   if (isset($_POST['enviar'])){
     $id = $_POST['id'];
     $nombre = $_POST['nombre'];
-    $rfc = $_POST['rfc'];
-    $telefono = $_POST['telefono'];
     $direccion = $_POST['direccion'];
-    $email = $_POST['email'];
+    $rfc = $_POST['rfc'];
+    $correo = $_POST['email'];
+    $telefono = $_POST['telefono'];
 
-    $sql = "UPDATE provedores SET nombre='$nombre', rfc='$rfc', telefono='$telefono', direccion='$direccion', correo='$email'
-    WHERE id_provedor=$id";
+    $sql = "UPDATE clientes SET nombre='$nombre', direccion='$direccion', rfc='$rfc', correo='$correo', telefono='$telefono'
+    WHERE id_cliente=$id";
 
     if($conn->query($sql) === TRUE) {
-      echo "<script language='JavaScript'>
+      echo "<script>
         alert('Se actualizo correctamente');
       </script>";
-      header("Location: ../PAGES/principal.php?opcion=EdicionProveedores");
+      header("Location: ../principal.php?opcion=EdicionClientes");
     }else{
-      echo "<script language='JavaScript'>
-        alert('Se actualizo correctamente');
+      echo "<script>
+        alert('No se actualizo correctamente');
       </script>";
-      header("Location: ../PAGES/principal.php?opcion=EdicionProveedores");
+      header("Location: ../principal.php?opcion=EdicionClientes");
     }
 
   }else{
     $id = $_GET['id'];
-    $sql = "SELECT * FROM provedores WHERE id_provedor = $id";
+    $sql = "SELECT * FROM clientes WHERE id_cliente = $id";
     if ($result = $conn->query($sql)){
       $row = $result->fetch_assoc();
-      $id = $row["id_provedor"];
+
+      $id = $row["id_cliente"];
       $nombre = $row["nombre"];
-      $rfc = $row["rfc"];
-      $telefono = $row["telefono"];
       $direccion = $row["direccion"];
+      $rfc = $row["rfc"];
       $correo = $row["correo"];
+      $telefono = $row["telefono"];
     }
     $conn->close();
 ?>
-<?php include('../FUNCTIONS/menu.php'); ?>
 
-<link rel="stylesheet" href="../STYLES/principal.css">
+<link rel="stylesheet" href="../../STYLES/principal.css">
 <div class="container">
   <header>Clientes</header>
   <form action="<?=$_SERVER['PHP_SELF']?>" method="post" class="form" id="form">
@@ -78,7 +78,7 @@
         </div>
         <input type="hidden" name="id" value="<?php echo $id; ?>" />
         <input type="submit" name="enviar" value="ACTUALIZAR" class="button"></input>
-        <a href="../PAGES/principal.php?opcion=EdicionProveedores" class="return">Regresar</a>
+        <a href="../principal.php?opcion=EdicionClientes" class="return">Regresar</a>
       </div>
     </div>
   </form>

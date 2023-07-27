@@ -73,7 +73,7 @@ body {
   flex-wrap: wrap;
 }
 
-form .fields .input-field {
+form .fields .input-field{
   display: flex;
   width: calc(100% / 3 - 15px);
   flex-direction: column;
@@ -148,3 +148,17 @@ form button:hover {
   margin: 25px 0;
   padding: 10px 10px;
 }
+
+.select {
+  outline: none;
+  font-size: .9em;
+  font-weight: 400;
+  color: #333;
+  border-radius: 5px;
+  border: 1px solid #aaa;
+  padding: 0 15px;
+  height: 42px;
+  margin: 8px 0;
+}
+
+/*MENU*/
