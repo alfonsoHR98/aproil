@@ -49,6 +49,10 @@
           case "RegistroLotes":
             include './Registros/registroLotes.php';
             break;
+          
+          case "EdicionLotes":
+            include './Lotes/busquedaPorLotes.php';
+            break;
 
           default:
             break;

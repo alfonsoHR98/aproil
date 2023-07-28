@@ -1,13 +1,15 @@
 <?php
 
-  include('../conn.php');
+  require '../conn.php';
+
   if ($_SERVER["REQUEST_METHOD"] === "POST"){
     $nombre = $_POST['nombre'];
     $caracteristicas = $_POST['caracteristicas'];
     $unidad = $_POST['unidad'];
+    $marca = $_POST['marca'];
 
-    $sql = "INSERT INTO productos (nombre,caracteristicas,unidad) 
-    VALUES ('$nombre','$caracteristicas','$unidad')";
+    $sql = "INSERT INTO productos (nombre,caracteristicas,unidad,marca) 
+    VALUES ('$nombre','$caracteristicas','$unidad','$marca')";
 
     if ($conn->query($sql) === TRUE) {
       echo "
