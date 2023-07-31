@@ -54,6 +54,15 @@
             include './Lotes/busquedaPorLotes.php';
             break;
 
+          // CASOS PARA LOS ALMACENES
+          case "InventarioPorAlmacen":
+            include './Inventarios/inventarioPorAlmacen.php';
+            break;
+          
+          case "TraspasoDeMercancia":
+            include '';
+            break;
+
           default:
             break;
         }

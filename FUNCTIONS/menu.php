@@ -9,6 +9,12 @@
 
     <ul>
       <li><a href="./principal.php">Inicio</a></li>
+      <li><a href="#">Ventas</a>
+        <ul>
+          <li><a href="../PAGES/principal.php?opcion=RegistrarVenta">Registrar venta</a></li>
+          <li><a href="../PAGES/principal.php?opcion=ConsultarVenta">Consultar ventas</a></li>
+        </ul>
+      </li>
       <li><a href="#">Productos</a>
         <ul>
           <li><a href="../PAGES/principal.php?opcion=RegistroProductos">Registro</a></li>
@@ -37,8 +43,8 @@
           </li>
           <li><a href="#">Almacenes</a>
             <ul>
-              <li><a href="#">Inventario de almacén</a>
-              <li><a href="#">Traspaso de mercancía</a>
+              <li><a href="../PAGES/principal.php?opcion=InventarioPorAlmacen">Inventario de almacén</a>
+              <li><a href="../PAGES/principal.php?opcion=TraspasoDeMercancia">Traspaso de mercancía</a>
             </ul>
           </li>
         </ul>
