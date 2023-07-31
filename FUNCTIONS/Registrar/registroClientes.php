@@ -1,6 +1,7 @@
 <?php
 
-  include('../FUNCTIONS/conn.php');
+  include '../conn.php';
+
   if ($_SERVER["REQUEST_METHOD"] === "POST"){
     $nombre = $_POST['nombre'];
     $direccion = $_POST['direccion'];
@@ -17,14 +18,14 @@
           alert('Los datos se registraron correctamente de la base de datos');
         </script>
       ";
-      header('Location: ../PAGES/principal.php?opcion=RegistroClientes');
+      header('Location: ../../PAGES/principal.php?opcion=RegistroClientes');
     }else{
       echo "
         <script languaje='JavaScript'>
           alert('Los datos NO se registraron correctamente de la base de datos');
         </script>
       ";
-      header('Location: ../PAGES/principal.php?opcion=RegistroClientes');
+      header('Location: ../../PAGES/principal.php?opcion=RegistroClientes');
     }
   }
 ?>

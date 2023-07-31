@@ -1,9 +1,9 @@
 <div class="container">
-  <header>Lotes</header>
-  <form action="../FUNCTIONS/registroClientes.php" method="post" class="form" id="form">
+  <header>Clientes</header>
+  <form action="./../FUNCTIONS/Registrar/registroClientes.php" method="post" class="form" id="form">
     <div class="form first">
       <div class="details">
-        <span class="title">Alta de lote</span>
+        <span class="title">Alta de cliente</span>
 
         <div class="fields">
 

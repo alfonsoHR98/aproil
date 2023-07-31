@@ -8,7 +8,7 @@
   <nav class="navigation">
 
     <ul>
-      <li><a href="../PAGES/principal.php">Inicio</a></li>
+      <li><a href="./principal.php">Inicio</a></li>
       <li><a href="#">Productos</a>
         <ul>
           <li><a href="../PAGES/principal.php?opcion=RegistroProductos">Registro</a></li>
@@ -31,8 +31,8 @@
         <ul>
           <li><a href="#">Lotes</a>
             <ul>
-              <li><a href="#">Registrar lote</a>
-              <li><a href="#">Información de lote</a>
+              <li><a href="../PAGES/principal.php?opcion=RegistroLotes">Registrar lote</a>
+              <li><a href="../PAGES/principal.php?opcion=EdicionLotes">Información de lote</a>
             </ul>
           </li>
           <li><a href="#">Almacenes</a>

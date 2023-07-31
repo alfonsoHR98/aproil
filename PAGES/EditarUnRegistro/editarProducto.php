@@ -1,5 +1,5 @@
 <?php 
-  include('../FUNCTIONS/conn.php');
+  include '../../FUNCTIONS/conn.php';
 
   if (isset($_POST['enviar'])){
     $id = $_POST['id'];
@@ -14,12 +14,12 @@
       echo "<script language='JavaScript'>
         alert('Se actualizo correctamente');
       </script>";
-      header("Location: ../PAGES/principal.php?opcion=EdicionProductos");
+      header("Location: ../principal.php?opcion=EdicionProductos");
     }else{
       echo "<script language='JavaScript'>
         alert('Se actualizo correctamente');
       </script>";
-      header("Location: ../PAGES/principal.php?opcion=EdicionProductos");
+      header("Location: ../principal.php?opcion=EdicionProductos");
     }
 
   }else{
@@ -34,15 +34,14 @@
     }
     $conn->close();
 ?>
-<?php include('../FUNCTIONS/menu.php'); ?>
 
-<link rel="stylesheet" href="../STYLES/principal.css">
+<link rel="stylesheet" href="../../STYLES/principal.css">
 <div class="container">
-  <header>Clientes</header>
+  <header>Productos</header>
   <form action="<?=$_SERVER['PHP_SELF']?>" method="post" class="form" id="form">
     <div class="form first">
       <div class="details">
-        <span class="title">Edición de proveedor</span>
+        <span class="title">Edición de producto</span>
 
         <div class="fields">
 
@@ -64,7 +63,7 @@
         </div>
         <input type="hidden" name="id" value="<?php echo $id; ?>" />
         <input type="submit" name="enviar" value="ACTUALIZAR" class="button"></input>
-        <a href="../PAGES/principal.php?opcion=EdicionProductos" class="return">Regresar</a>
+        <a href="../principal.php?opcion=EdicionProductos" class="return">Regresar</a>
       </div>
     </div>
   </form>

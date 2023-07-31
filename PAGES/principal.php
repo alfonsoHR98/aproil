@@ -16,24 +16,44 @@
         $opcion = $_GET['opcion'];
 
         switch ($opcion) {
+          
+          // CASOS PARA LOS CLIENTES
           case "RegistroClientes":
-            include '../PAGES/registroClientes.php';
+            include './Registros/registroClientes.php';
             break;
-          case "RegistroProveedores":
-            include '../PAGES/registroProveedores.php';
-            break;
-          case "EdicionProveedores":
-            include '../PAGES/edicionProveedores.php';
-            break;
-          case "RegistroProductos":
-            include '../PAGES/registroProductos.php';
-            break;
+
           case "EdicionClientes":
-            include '../PAGES/edicionClientes.php';
+            include './EdicionDeRegistros/edicionClientes.php';
             break;
+
+          
+          // CASOS PARA LOS PROVEEDORES
+          case "RegistroProveedores":
+            include './Registros/registroProveedores.php';
+            break;
+            
+          case "EdicionProveedores":
+            include './EdicionDeRegistros/edicionProveedores.php';
+            break;
+
+          // CASOS PARA LOS PRODUCTOS 
+          case "RegistroProductos":
+            include './Registros/registroProductos.php';
+            break;
+
           case "EdicionProductos":
-            include '../PAGES/edicionProductos.php';
+            include './EdicionDeRegistros/edicionProductos.php';
             break;
+          
+          // CASOS PARA LOS LOTES
+          case "RegistroLotes":
+            include './Registros/registroLotes.php';
+            break;
+          
+          case "EdicionLotes":
+            include './Lotes/busquedaPorLotes.php';
+            break;
+
           default:
             break;
         }

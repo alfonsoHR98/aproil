@@ -1,0 +1,101 @@
+.lote-container {
+  width: 100vw;
+  height: 100vh;
+  background-color: #fec7c7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.lote {
+  width: 82vw;
+  height: 70vh;
+  background-color: #ffffff;
+  box-shadow: 0 .4rem .8rem #0005;
+  border-radius: .8rem;
+  overflow: hidden;
+}
+
+.lote h1 {
+  width: 100%;
+  height: 10%;
+  background-color: rgba(110, 0, 0, 0.708);
+  padding: .8rem 1rem;
+  text-align: center;
+  color: #fff;
+  font-size: 2em;
+}
+
+.form-lote {
+  width: 95%;
+  max-height: calc(70% - 1.5rem);
+  background-color: #fffb;
+  margin: .8rem auto;
+  padding: 15px;
+  border-radius: .6rem;
+  overflow: auto;
+  box-shadow: 0px 10px 80px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(0, 0, 0, 0.25);
+}
+
+.lote::-webkit-scrollbar {
+  width: .5rem;
+  height: .5rem;
+}
+
+.lote::-webkit-scrollbar-thumb {
+  border-radius: .5rem;
+  background-color: #0004;
+  visibility: visible;
+}
+
+button {
+  height: 25px;
+  max-width: 200px;
+  font-weight: 600;
+  width: auto;
+  border: none;
+  outline: none;
+  background-color: #ff0000;
+  color: #fff;
+  border-radius: 5px;
+  margin: 10px 0;
+  transition: all 0.3s linear;
+  cursor: pointer;
+}
+
+form button:hover {
+  background-color: #8b0000;
+  font-weight: 700;
+}
+
+.form-lote h2 {
+  font-size: 1.5em;
+}
+
+.form-lote label {
+  font-size: 1em;
+  font-weight: 500;
+  color: #2e2e2e;
+}
+
+.form-lote input, .form-lote select {
+  outline: none;
+  font-size: .9em;
+  font-weight: 400;
+  color: #333;
+  border-radius: 5px;
+  border: 1px solid #aaa;
+  padding: 0 5px;
+  height: 25px;
+  margin: 4px 0;
+}
+
+.agregar {
+  background-color: #3300ff;
+}
+
+.registrar {
+  background-color: #167a25;
+}
