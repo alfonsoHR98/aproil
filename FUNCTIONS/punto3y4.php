@@ -17,7 +17,7 @@
               $result_proveedor = $conn->query($sql_proveedor);
               if ($result_proveedor->num_rows > 0) {
                 while ($row = $result_proveedor->fetch_assoc()) {
-                  echo '<option value="'.$row['id_provedor'].'">'.$row['id_provedor'].' -'.$row['nombre'].'</option>';
+                  echo '<option value="'.$row['id_provedor'].'">'.$row['id_provedor'].' - '.$row['nombre'].'</option>';
                 }
               }
             ?>

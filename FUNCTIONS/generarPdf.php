@@ -151,14 +151,15 @@
                 <tbody>
             ';
 
-            $sql = " SELECT pr.id_provedor, pr.nombre, a.nombre, p.nombre, p.caracteristicas, cl.cantidad
+            $sql = " SELECT pr.id_provedor, pr.nombre, a.nombre, p.nombre, p.caracteristicas, l.fecha_compra, cl.cantidad
             FROM provedores pr
             JOIN lotes l ON pr.id_provedor = l.id_provedor
             JOIN almacen_lotes al ON l.id_lote = al.id_lote
             JOIN almacen a ON al.id_almacen = a.id_almacen
             JOIN registro_lotes cl ON al.id_lote = cl.id_lote
-            JOIN productos p ON cl.id_producto = p.id_producto;
-            WHERE pr.id_provedor = $id
+            JOIN productos p ON cl.id_producto = p.id_producto
+            WHERE pr.id_provedor = $id AND (DATE(l.fecha_compra) BETWEEN '$fecha' AND '$fecha2')
+            GROUP BY pr.id_provedor, p.id_producto, p.nombre
             ";
 
             /*$sql=" SELECT a.id_almacen, p.id_producto, p.nombre, p.caracteristicas, l.fecha_compra, pr.nombre, SUM(cl.cantidad) AS cantidad_existente
@@ -175,11 +176,11 @@
                 while ($row = mysqli_fetch_assoc($result)) {
                     $pagina .=' 
                     <tr>
-                    <td>' .$row["id_producto"]. '</td>
+                    <td>' .$row["id_provedor"]. '</td>
                     <td>' .$row["nombre"]. '</td>
                     <td>' .$row["caracteristicas"]. '</td>
                     <td>' .$row["fecha_compra"]. '</td>
-                    <td>' .$row["cantidad_existente"]. '</td>
+                    <td>' .$row["cantidad"]. '</td>
                     </tr>
                     ';
                 }
