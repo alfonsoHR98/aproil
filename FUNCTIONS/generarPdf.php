@@ -30,13 +30,14 @@
                             <th>Nombre</th>
                             <th>Almacen</th>
                             <th>Caracteristica</th>
+                            <th>Presentación</th>
                             <th>Cantidad total</th>
                         </tr>
                     </thead>
                 <tbody>
             ';
 
-            $sql=" SELECT a.id_almacen, al.nombre AS nombrealma, p.id_producto, p.nombre, p.caracteristicas, SUM(cl.cantidad) AS cantidad_existente
+            $sql=" SELECT a.id_almacen, al.nombre AS nombrealma, p.id_producto, p.nombre, p.caracteristicas, cl.unidad_compra, SUM(cl.cantidad) AS cantidad_existente
             FROM almacen_lotes a
             JOIN almacen al ON a.id_almacen = al.id_almacen
             JOIN registro_lotes cl ON a.id_lote = cl.id_lote
@@ -54,6 +55,7 @@
                     <td>' .$row["nombre"]. '</td>
                     <td>' .$row["nombrealma"]. '</td>
                     <td>' .$row["caracteristicas"]. '</td>
+                    <td>' .$row["unidad_compra"]. '</td>
                     <td>' .$row["cantidad_existente"]. '</td>
                     </tr>
                     ';
@@ -88,13 +90,14 @@
                             <th>Nombre</th>
                             <th>Caracteristica</th>
                             <th>Fecha de compra</th>
-                            <th>Cantidad total</th>
+                            <th>Cantidad Existente</th>
+                            <th>Cantidad total litros</th>
                         </tr>
                     </thead>
                 <tbody>
             ';
 
-            $sql=" SELECT a.id_almacen, p.id_producto, p.nombre, p.caracteristicas, l.fecha_compra, SUM(cl.cantidad) AS cantidad_existente
+            $sql=" SELECT a.id_almacen, p.id_producto, p.nombre, p.caracteristicas, DATE(l.fecha_compra) AS fecha_compra, CONCAT(cl.unidad_compra,' ',(SUM(cl.cantidad))) AS cantidad_existente, ROUND((SUM(cl.cantidad) * (SELECT valor FROM unidades_de_compra WHERE cl.unidad_compra = unidad )),2) AS unidadcompra2
             FROM almacen_lotes a
             JOIN lotes l ON a.id_lote = l.id_lote
             JOIN registro_lotes cl ON a.id_lote = cl.id_lote
@@ -113,6 +116,7 @@
                     <td>' .$row["caracteristicas"]. '</td>
                     <td>' .$row["fecha_compra"]. '</td>
                     <td>' .$row["cantidad_existente"]. '</td>
+                    <td>' .$row["unidadcompra2"]. '</td>
                     </tr>
                     ';
                 }
@@ -151,7 +155,7 @@
                 <tbody>
             ';
 
-            $sql = " SELECT pr.id_provedor, pr.nombre, a.nombre, p.nombre, p.caracteristicas, l.fecha_compra, cl.cantidad
+            $sql = " SELECT pr.id_provedor, pr.nombre, a.nombre, p.nombre, p.caracteristicas, DATE(l.fecha_compra) AS fecha_compra, CONCAT(cl.unidad_compra,' ',(SUM(cl.cantidad))) AS cantidad, ROUND((SUM(cl.cantidad) * (SELECT valor FROM unidades_de_compra WHERE cl.unidad_compra = unidad )),2) AS unidadcompra2
             FROM provedores pr
             JOIN lotes l ON pr.id_provedor = l.id_provedor
             JOIN almacen_lotes al ON l.id_lote = al.id_lote
@@ -162,14 +166,6 @@
             GROUP BY pr.id_provedor, p.id_producto, p.nombre
             ";
 
-            /*$sql=" SELECT a.id_almacen, p.id_producto, p.nombre, p.caracteristicas, l.fecha_compra, pr.nombre, SUM(cl.cantidad) AS cantidad_existente
-            FROM almacen_lotes a
-            JOIN lotes l ON a.id_lote = l.id_lote
-            JOIN registro_lotes cl ON a.id_lote = cl.id_lote
-            JOIN productos p ON cl.id_producto = p.id_producto
-            WHERE a.id_almacen = $id AND (DATE(l.fecha_compra) BETWEEN '$fecha' AND '$fecha2')
-            GROUP BY a.id_almacen, p.id_producto, p.nombre " ;
-            */
             $result = mysqli_query($conn, $sql);
             
             if (mysqli_num_rows($result) > 0) {
@@ -181,6 +177,7 @@
                     <td>' .$row["caracteristicas"]. '</td>
                     <td>' .$row["fecha_compra"]. '</td>
                     <td>' .$row["cantidad"]. '</td>
+                    <td>' .$row["unidadcompra2"]. '</td>
                     </tr>
                     ';
                 }
