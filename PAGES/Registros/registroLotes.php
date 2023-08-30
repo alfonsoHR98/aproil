@@ -2,7 +2,7 @@
   include '../FUNCTIONS/conn.php'; 
 
   $sql_proveedor = "SELECT * FROM provedores";
-  $sql_almacen = "SELECT * FROM almacen;"
+  $sql_almacen = "SELECT * FROM almacen";
 ?>
 
 <div class="container">

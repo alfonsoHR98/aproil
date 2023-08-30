@@ -4,14 +4,17 @@
 
   $sql_lote_registro = "SELECT * FROM registro_lotes WHERE id_lote = $id_lote";
 ?>
+
+<link rel="stylesheet" href="../../STYLES/principal.css">
 <link rel="stylesheet" href="../../STYLES/tablas.css">
 
 <main class="table">
   <section class="table_header">
-    <h1>Lote <?php echo $id_lote; ?></h1>
+    <h1>Lote ID: <?php echo $id_lote; ?></h1>
   </section>
   
   <section class="table_body">
+  <a class="regresar" href="../../PAGES/principal.php?opcion=EdicionLotes">REGRESAR</a>
     <table>
       <thead>
         <tr>

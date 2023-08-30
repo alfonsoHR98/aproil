@@ -23,7 +23,7 @@
         <tr>
           <th>Nombre</th>
           <th>Caracteristicas</th>
-          <th>Unidad</th>
+          <th>Marca</th>
           <th>Editar</th>
           <th>Eliminar</th>
         </tr>
