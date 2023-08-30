@@ -51,7 +51,21 @@
       </li>
       <li><a href="#">Reportes</a>
         <ul>
-          <li><a href="#">Reporte de ventas</a></li>
+          <li><a href="#">Ventas</a>
+            <ul>
+              <li><a href="../PAGES/principal.php?opcion=ReporteVentasPorProducto">Reporte por producto</a></li>
+              <li><a href="../PAGES/principal.php?opcion=ReporteVentasPorLote">Reporte por lote</a></li>
+              <li><a href="../PAGES/principal.php?opcion=ReporteVentasPorAlmacen">Reporte por almacén</a></li>
+              <li><a href="../PAGES/principal.php?opcion=ReporteVentasPorCliente">Reporte por cliente</a></li>
+            </ul>
+          </li>
+          <li><a href="#">Compras</a>
+            <ul>
+              <li><a href="../PAGES/principal.php?opcion=ReporteComprasPorProducto">Reporte por producto</a></li>
+              <li><a href="../PAGES/principal.php?opcion=ReporteComprasPorLote">Reporte por lote</a></li>
+              <li><a href="../PAGES/principal.php?opcion=ReporteComprasPorAlmacen">Reporte por almacén</a></li>
+            </ul>
+          </li>
         </ul>
       </li>
       <li><a href="#">Salir</a></li>

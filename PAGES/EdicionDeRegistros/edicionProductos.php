@@ -23,7 +23,7 @@
         <tr>
           <th>Nombre</th>
           <th>Caracteristicas</th>
-          <th>Unidad</th>
+          <th>Marca</th>
           <th>Editar</th>
           <th>Eliminar</th>
         </tr>
@@ -35,13 +35,13 @@
             $id = $row["id_producto"];
             $nombre = $row["nombre"];
             $caracteristicas = $row["caracteristicas"];
-            $unidad = $row["unidad"];
+            $marca = $row["marca"];
 
             echo '
             <tr>
               <td>'.$nombre.'</td>
               <td>'.$caracteristicas.'</td>
-              <td>'.$unidad.'</td>
+              <td>'.$marca.'</td>
               <td><a href="./EditarUnRegistro/editarProducto.php?id='.$id.'"><img src="../assets/edit.svg"></a></td>
               <td><a href="../FUNCTIONS/EliminarRegistro/eliminarProducto.php?id='.$id.'" onclick="return confirmar()"><img src="../assets/eliminar.svg"></a></td>
             </tr>

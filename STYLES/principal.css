@@ -148,6 +148,7 @@ form button:hover {
 }
 
 .button {
+  margin-right: 15px;
   height: 45px;
   max-width: 200px;
   font-weight: 700;
@@ -166,6 +167,19 @@ form button:hover {
   background-color: #8b0000;
 }
 
+.search_inventario {
+  width: fit-content;
+  margin: 5px;
+  padding: 0px 10px;
+  background-color: #a00000;
+}
+
+.pdf {
+  width: fit-content;
+  padding: 0px 10px;
+  background-color: #0081a5;
+}
+
 .return {
   color: #8b0000;
   text-decoration: none;
@@ -180,6 +194,20 @@ form button:hover {
   font-size: .9em;
   font-weight: 400;
   color: #333;
+  border-radius: 5px;
+  border: 1px solid #aaa;
+  padding: 0 15px;
+  height: 42px;
+  margin: 8px 0;
+}
+
+.regresar {
+  text-decoration: none;
+  outline: none;
+  font-size: .9em;
+  font-weight: 400;
+  color: #ffffff;
+  background-color: #4e0000;
   border-radius: 5px;
   border: 1px solid #aaa;
   padding: 0 15px;

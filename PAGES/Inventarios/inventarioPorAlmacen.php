@@ -1,75 +1,35 @@
-<?php
-  require '../FUNCTIONS/conn.php';
-  $sql_almacenes = "SELECT * FROM almacen";
+<?php 
+  include '../FUNCTIONS/conn.php'; 
+  $sql_almacen = "SELECT * FROM almacen;"
 ?>
-<link rel="stylesheet" href="../STYLES/tablas.css">
 
-<main class="table">
-  <section class="table_header">
-    <h1>Lotes</h1>
-  </section>
-  
-  <section class="table_body">
-    <div class="search">
-      <label><img src="./../assets/search.svg" alt=""></label>
-      <select id="almacen" name="almacen">
-        <?php
-          $almacen_result = $conn->query($sql_almacenes);
-          while ($row_almacen_result = $almacen_result->fetch_assoc()) {
-            echo '<option value="'.$row_almacen_result['id_almacen'].'">'.$row_almacen_result['nombre'].'</option>';
-          }
-        ?>
-      </select>
+<div class="container">
+  <header>Inventario de almacenes</header>
+  <form action="../PAGES/Inventarios/inventarioAlmacen.php" method="post" class="form" id="form">
+    <div class="form first">
+      <div class="details">
+        <span class="title">Selecciona el almacén a buscar</span>
+
+        <div class="fields">
+
+          <div class="">
+            <label>Almacen</label>
+            <select class="select" id="id_almacen" name="id_almacen" required>
+              <?php
+                $result_almacen = $conn->query($sql_almacen);
+                if ($result_almacen->num_rows > 0) {
+                  while ($row = $result_almacen->fetch_assoc()) {
+                    echo '<option value="'.$row['id_almacen'].'">'.$row['id_almacen'].' -'.$row['nombre'].'</option>';
+                  }
+                }
+              ?>
+            </select>
+          </div>
+
+        </div>
+
+        <button type="submit">Ver inventario</button>
+      </div>
     </div>
-    <table>
-      <thead>
-        <tr>
-          <th>ID producto</th>
-          <th>Nombre producto</th>
-          <th>Marca</th>
-          <th>cantidad</th>
-        </tr>
-      </thead>
-      <tbody>
-      <?php 
-        if ($result_lotes = $conn->query($sql_lotes)){
-          while ($row_lotes = $result_lotes->fetch_assoc()){
-            $id_lote = $row_lotes['id_lote'];
-            $fecha_compra_lote = $row_lotes['fecha_compra'];
-            $id_provedor = $row_lotes['id_provedor'];
-            
-            $sql_proveedor = "SELECT * FROM provedores WHERE id_provedor = $id_provedor";
-            $result_proveedor = $conn->query($sql_proveedor);
-            $nombre_proveedor = $result_proveedor->fetch_assoc();
-
-            $sql_obtener_id_almacen = "SELECT * FROM almacen_lotes WHERE id_lote = $id_lote";
-            $result_id_almacen = $conn->query($sql_obtener_id_almacen);
-            $id_almacen_obtenido = $result_id_almacen->fetch_assoc();
-            $id_almacen = $id_almacen_obtenido['id_almacen'];
-
-            $sql_almacen = "SELECT * FROM almacen WHERE id_almacen = $id_almacen";
-            $result_almacen = $conn->query($sql_almacen);
-            $almacen = $result_almacen->fetch_assoc();
-
-            echo '
-            <tr>
-              <td>'.$id_lote.'</td>
-              <td>'.$fecha_compra_lote.'</td>
-              <td>'.$nombre_proveedor['nombre'].'</td>
-              <td>'.$almacen['nombre'].'</td>
-              <td><a href="../PAGES/Lotes/detallesDeLote.php?id='.$id_lote.'"><img src="../assets/edit.svg"></a></td>
-              <td><a href="" onclick="return confirmar()"><img src="../assets/eliminar.svg"></a></td>
-            </tr>
-            ';
-            $result_proveedor->free();
-            $result_id_almacen->free();
-            $result_almacen->free();
-          }
-        }
-        $result_lotes->free();
-      ?>
-      </tbody>
-    </table>
-  </section>
-</main>
-
+  </form>
+</div>
