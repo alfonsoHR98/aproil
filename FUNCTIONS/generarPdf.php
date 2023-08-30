@@ -103,7 +103,7 @@
             JOIN registro_lotes cl ON a.id_lote = cl.id_lote
             JOIN productos p ON cl.id_producto = p.id_producto
             WHERE a.id_almacen = $id AND (DATE(l.fecha_compra) BETWEEN '$fecha' AND '$fecha2')
-            GROUP BY a.id_almacen, p.id_producto, p.nombre " ;
+            GROUP BY a.id_almacen, cl.id_lote, p.id_producto, p.nombre ";
             
             $result = mysqli_query($conn, $sql);
             
