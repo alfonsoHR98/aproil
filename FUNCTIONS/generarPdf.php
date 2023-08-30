@@ -30,19 +30,19 @@
                             <th>Nombre</th>
                             <th>Almacen</th>
                             <th>Caracteristica</th>
-                            <th>Presentación</th>
-                            <th>Cantidad total</th>
+                            <th>Cantidad existente</th>
+                            <th>Cantidad total litros</th>
                         </tr>
                     </thead>
                 <tbody>
             ';
 
-            $sql=" SELECT a.id_almacen, al.nombre AS nombrealma, p.id_producto, p.nombre, p.caracteristicas, cl.unidad_compra, SUM(cl.cantidad) AS cantidad_existente
+            $sql=" SELECT a.id_almacen, al.nombre AS nombre1, p.id_producto, p.nombre, p.caracteristicas, cl.unidad_compra, CONCAT(cl.unidad_compra,' ',(cl.cantidad)) AS cantidad_existente, ROUND((SUM(cl.cantidad) * (SELECT valor FROM unidades_de_compra WHERE cl.unidad_compra = unidad )),2) AS unidadcompra2
             FROM almacen_lotes a
             JOIN almacen al ON a.id_almacen = al.id_almacen
             JOIN registro_lotes cl ON a.id_lote = cl.id_lote
             JOIN productos p ON cl.id_producto = p.id_producto
-            GROUP BY a.id_almacen, p.id_producto, p.nombre " ;
+            GROUP BY a.id_almacen, cl.unidad_compra, p.id_producto, cl.id_lote" ;
 
             
             $result = mysqli_query($conn, $sql);
@@ -53,10 +53,10 @@
                     <tr>
                     <td>' .$row["id_producto"]. '</td>
                     <td>' .$row["nombre"]. '</td>
-                    <td>' .$row["nombrealma"]. '</td>
+                    <td>' .$row["nombre1"]. '</td>
                     <td>' .$row["caracteristicas"]. '</td>
-                    <td>' .$row["unidad_compra"]. '</td>
                     <td>' .$row["cantidad_existente"]. '</td>
+                    <td>' .$row["unidadcompra2"]. '</td>
                     </tr>
                     ';
                     }
@@ -90,7 +90,7 @@
                             <th>Nombre</th>
                             <th>Caracteristica</th>
                             <th>Fecha de compra</th>
-                            <th>Cantidad Existente</th>
+                            <th>Cantidad existente</th>
                             <th>Cantidad total litros</th>
                         </tr>
                     </thead>
@@ -103,7 +103,7 @@
             JOIN registro_lotes cl ON a.id_lote = cl.id_lote
             JOIN productos p ON cl.id_producto = p.id_producto
             WHERE a.id_almacen = $id AND (DATE(l.fecha_compra) BETWEEN '$fecha' AND '$fecha2')
-            GROUP BY a.id_almacen, cl.id_lote, p.id_producto, p.nombre ";
+            GROUP BY a.id_almacen, cl.unidad_compra, cl.id_lote, p.id_producto, p.nombre ";
             
             $result = mysqli_query($conn, $sql);
             
@@ -149,7 +149,8 @@
                             <th>Nombre</th>
                             <th>Caracteristica</th>
                             <th>Fecha de compra</th>
-                            <th>Cantidad total</th>
+                            <th>Cantidad existente</th>
+                            <th>Cantidad total en litros</th>
                         </tr>
                     </thead>
                 <tbody>
@@ -163,7 +164,7 @@
             JOIN registro_lotes cl ON al.id_lote = cl.id_lote
             JOIN productos p ON cl.id_producto = p.id_producto
             WHERE pr.id_provedor = $id AND (DATE(l.fecha_compra) BETWEEN '$fecha' AND '$fecha2')
-            GROUP BY pr.id_provedor, p.id_producto, p.nombre
+            GROUP BY pr.id_provedor,al.id_lote,cl.unidad_compra, pr.nombre,a.nombre, p.id_producto, p.nombre
             ";
 
             $result = mysqli_query($conn, $sql);
