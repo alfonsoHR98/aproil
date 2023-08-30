@@ -77,7 +77,7 @@
 
         </div>
         <input type="hidden" name="id" value="<?php echo $id; ?>" />
-        <input type="submit" name="enviar" value="ACTUALIZAR" class="button"></input>
+        <input type="submit" name="enviar" value="Buscar" class="button"></input>
         <a href="../principal.php?opcion=EdicionClientes" class="return">Regresar</a>
       </div>
     </div>
