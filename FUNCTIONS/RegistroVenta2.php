@@ -2,6 +2,9 @@
   include '../FUNCTIONS/conn.php'; 
   $idProducto = $_POST['id_producto'];
   $idPresentacion = $_POST['id_presentacion'];
+  
+  $sql_clientes = "SELECT * FROM clientes;";
+
 
 
 // Consulta SQL para obtener la cantidad total
@@ -34,7 +37,6 @@
           
             echo '<input type="hidden" name="id_producto" value='.$idProducto.'>' ;
             echo '<input type="hidden" name="id_presentacion" value='.$idPresentacion.'>' ;
-            echo '<input type="hidden" name="id_cliente" value=7>' ;    #cambiar esta linea    
         ?>
         
         <div class="fields">
@@ -54,7 +56,19 @@
             <label>Precio de venta</label>
             <input type="text" id="precio" name="precio" required>
         </div>
-        
+        <div class="input-field">
+            <label>Nombre de cliente</label>
+            <select class="select" id="id_cliente" name="id_cliente" required>
+              <?php
+                $result_clientes = $conn->query($sql_clientes);
+                if ($result_clientes->num_rows > 0) {
+                  while ($row = $result_clientes->fetch_assoc()) {
+                    echo '<option value="'.$row['id_cliente'].'">'.$row['id_cliente'].' -'.$row['nombre'].'</option>';
+                  }
+                }
+              ?>
+            </select>
+          </div>
 
           
         </div>

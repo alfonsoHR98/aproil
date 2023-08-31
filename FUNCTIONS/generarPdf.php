@@ -20,109 +20,9 @@
     
 
     switch($datos){
-        case 1:
-            $pagina .=' 
-                <div class="subtitle">Inventario General Productos</div>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nombre</th>
-                            <th>Almacen</th>
-                            <th>Caracteristica</th>
-                            <th>Cantidad existente</th>
-                            <th>Cantidad total litros</th>
-                        </tr>
-                    </thead>
-                <tbody>
-            ';
+        
 
-            $sql=" SELECT a.id_almacen, al.nombre AS nombre1, p.id_producto, p.nombre, p.caracteristicas, cl.unidad_compra, CONCAT(cl.unidad_compra,' ',(cl.cantidad)) AS cantidad_existente, ROUND((SUM(cl.cantidad) * (SELECT valor FROM unidades_de_compra WHERE cl.unidad_compra = unidad )),2) AS unidadcompra2
-            FROM almacen_lotes a
-            JOIN almacen al ON a.id_almacen = al.id_almacen
-            JOIN registro_lotes cl ON a.id_lote = cl.id_lote
-            JOIN productos p ON cl.id_producto = p.id_producto
-            GROUP BY a.id_almacen, cl.unidad_compra, p.id_producto, cl.id_lote" ;
-
-            
-            $result = mysqli_query($conn, $sql);
-            
-            if (mysqli_num_rows($result) > 0) {
-                while ($row = mysqli_fetch_assoc($result)) {
-                    $pagina .=' 
-                    <tr>
-                    <td>' .$row["id_producto"]. '</td>
-                    <td>' .$row["nombre"]. '</td>
-                    <td>' .$row["nombre1"]. '</td>
-                    <td>' .$row["caracteristicas"]. '</td>
-                    <td>' .$row["cantidad_existente"]. '</td>
-                    <td>' .$row["unidadcompra2"]. '</td>
-                    </tr>
-                    ';
-                    }
-                }
-            
-
-        break;
-
-        case 2:
-
-            $nombre = $_POST["id_almacen"];
-            $fecha = $_POST["date1"];
-            $fecha2 = $_POST["date2"];
-            $id = $nombre;
-            $sql = "SELECT nombre FROM almacen WHERE id_almacen = $nombre";
-            $result = mysqli_query($conn, $sql);
-            
-            if (mysqli_num_rows($result) > 0) {
-                while ($row = mysqli_fetch_assoc($result)) {
-                        $nombre = $row["nombre"];
-                    }
-                }
-
-
-            $pagina .=' 
-                <div class="subtitle">Inventario General Del '.$nombre.'</div>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nombre</th>
-                            <th>Caracteristica</th>
-                            <th>Fecha de compra</th>
-                            <th>Cantidad existente</th>
-                            <th>Cantidad total litros</th>
-                        </tr>
-                    </thead>
-                <tbody>
-            ';
-
-            $sql=" SELECT a.id_almacen, p.id_producto, p.nombre, p.caracteristicas, DATE(l.fecha_compra) AS fecha_compra, CONCAT(cl.unidad_compra,' ',(SUM(cl.cantidad))) AS cantidad_existente, ROUND((SUM(cl.cantidad) * (SELECT valor FROM unidades_de_compra WHERE cl.unidad_compra = unidad )),2) AS unidadcompra2
-            FROM almacen_lotes a
-            JOIN lotes l ON a.id_lote = l.id_lote
-            JOIN registro_lotes cl ON a.id_lote = cl.id_lote
-            JOIN productos p ON cl.id_producto = p.id_producto
-            WHERE a.id_almacen = $id AND (DATE(l.fecha_compra) BETWEEN '$fecha' AND '$fecha2')
-            GROUP BY a.id_almacen, cl.unidad_compra, cl.id_lote, p.id_producto, p.nombre ";
-            
-            $result = mysqli_query($conn, $sql);
-            
-            if (mysqli_num_rows($result) > 0) {
-                while ($row = mysqli_fetch_assoc($result)) {
-                    $pagina .=' 
-                    <tr>
-                    <td>' .$row["id_producto"]. '</td>
-                    <td>' .$row["nombre"]. '</td>
-                    <td>' .$row["caracteristicas"]. '</td>
-                    <td>' .$row["fecha_compra"]. '</td>
-                    <td>' .$row["cantidad_existente"]. '</td>
-                    <td>' .$row["unidadcompra2"]. '</td>
-                    </tr>
-                    ';
-                }
-            }
-
-        break;
+       
 
         case 3:
 
@@ -193,9 +93,282 @@
         break;
 
         case 5:
+            $fecha = $_POST["date1"];
+            $fecha2 = $_POST["date2"];
+            $id_producto = $_POST["id_producto"];
+            $id_almacen = $_POST["id_almacen"];
             $pagina .=' 
-                
+            <div class="subtitle">Inventario General Productos</div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Almacen</th>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Caracteristica</th>
+                            <th>Fecha de compra</th>
+                            <th>Cantidad Existente</th>
+                            <th>Cantidad total litros</th>
+                        </tr>
+                    </thead>
+                <tbody>
             ';
+                if($id_producto != "NULL" && $id_almacen != "NULL" && $fecha ==NULL&& $fecha2 ==NULL){
+                    
+                    $sql=" SELECT a.id_almacen, al.nombre AS nombrealma, p.id_producto, p.nombre, p.caracteristicas, DATE(l.fecha_compra) AS fecha_compra, CONCAT(cl.unidad_compra,' ',(SUM(cl.cantidad))) AS cantidad_existente, ROUND((SUM(cl.cantidad) * (SELECT valor FROM unidades_de_compra WHERE cl.unidad_compra = unidad )),2) AS unidadcompra2
+                    FROM almacen_lotes a
+                    JOIN almacen al ON a.id_almacen = al.id_almacen
+                    JOIN lotes l ON a.id_lote = l.id_lote
+                    JOIN registro_lotes cl ON a.id_lote = cl.id_lote
+                    JOIN productos p ON cl.id_producto = p.id_producto
+                    WHERE a.id_almacen = $id_almacen AND p.id_producto = $id_producto
+                    GROUP BY a.id_almacen, cl.unidad_compra, cl.id_lote, p.id_producto, p.nombre ";
+                 
+                    
+                }   
+            
+                if($id_producto != "NULL" && $id_almacen == "NULL" && $fecha ==NULL && $fecha2 ==NULL){
+                    $sql=" SELECT a.id_almacen, al.nombre AS nombrealma, p.id_producto, p.nombre, p.caracteristicas, DATE(l.fecha_compra) AS fecha_compra, CONCAT(cl.unidad_compra,' ',(SUM(cl.cantidad))) AS cantidad_existente, ROUND((SUM(cl.cantidad) * (SELECT valor FROM unidades_de_compra WHERE cl.unidad_compra = unidad )),2) AS unidadcompra2
+                    FROM almacen_lotes a
+                    JOIN almacen al ON a.id_almacen = al.id_almacen
+                    JOIN lotes l ON a.id_lote = l.id_lote
+                    JOIN registro_lotes cl ON a.id_lote = cl.id_lote
+                    JOIN productos p ON cl.id_producto = p.id_producto
+                    WHERE p.id_producto = $id_producto
+                    GROUP BY a.id_almacen, cl.unidad_compra, cl.id_lote, p.id_producto, p.nombre "; 
+                }
+                if($id_producto == "NULL" && $id_almacen == "NULL" && $fecha ==NULL && $fecha2 ==NULL){
+                    $sql=" SELECT a.id_almacen, al.nombre AS nombrealma, p.id_producto, p.nombre, p.caracteristicas, DATE(l.fecha_compra) AS fecha_compra, CONCAT(cl.unidad_compra,' ',(SUM(cl.cantidad))) AS cantidad_existente, ROUND((SUM(cl.cantidad) * (SELECT valor FROM unidades_de_compra WHERE cl.unidad_compra = unidad )),2) AS unidadcompra2
+                    FROM almacen_lotes a
+                    JOIN almacen al ON a.id_almacen = al.id_almacen
+                    JOIN lotes l ON a.id_lote = l.id_lote
+                    JOIN registro_lotes cl ON a.id_lote = cl.id_lote
+                    JOIN productos p ON cl.id_producto = p.id_producto
+                    GROUP BY a.id_almacen, cl.unidad_compra, cl.id_lote, p.id_producto, p.nombre ";
+                }
+                if($id_producto == "NULL" && $id_almacen != "NULL" && $fecha ==NULL && $fecha2 ==NULL){
+                    $sql=" SELECT a.id_almacen, al.nombre AS nombrealma, p.id_producto, p.nombre, p.caracteristicas, DATE(l.fecha_compra) AS fecha_compra, CONCAT(cl.unidad_compra,' ',(SUM(cl.cantidad))) AS cantidad_existente, ROUND((SUM(cl.cantidad) * (SELECT valor FROM unidades_de_compra WHERE cl.unidad_compra = unidad )),2) AS unidadcompra2
+                    FROM almacen_lotes a
+                    JOIN almacen al ON a.id_almacen = al.id_almacen
+                    JOIN lotes l ON a.id_lote = l.id_lote
+                    JOIN registro_lotes cl ON a.id_lote = cl.id_lote
+                    JOIN productos p ON cl.id_producto = p.id_producto
+                    WHERE a.id_almacen = $id_almacen 
+                    GROUP BY a.id_almacen, cl.unidad_compra, cl.id_lote, p.id_producto, p.nombre ";
+                }
+
+                #-----------------------------------------------------------------------------------
+
+                if($id_producto != "NULL" && $id_almacen != "NULL" && $fecha !=NULL&& $fecha2 !=NULL){
+                    
+                    $sql=" SELECT a.id_almacen, al.nombre AS nombrealma, p.id_producto, p.nombre, p.caracteristicas, DATE(l.fecha_compra) AS fecha_compra, CONCAT(cl.unidad_compra,' ',(SUM(cl.cantidad))) AS cantidad_existente, ROUND((SUM(cl.cantidad) * (SELECT valor FROM unidades_de_compra WHERE cl.unidad_compra = unidad )),2) AS unidadcompra2
+                    FROM almacen_lotes a
+                    JOIN almacen al ON a.id_almacen = al.id_almacen
+                    JOIN lotes l ON a.id_lote = l.id_lote
+                    JOIN registro_lotes cl ON a.id_lote = cl.id_lote
+                    JOIN productos p ON cl.id_producto = p.id_producto
+                    WHERE a.id_almacen = $id_almacen AND p.id_producto = $id_producto AND (DATE(l.fecha_compra) BETWEEN '$fecha' AND '$fecha2')
+                    GROUP BY a.id_almacen, cl.unidad_compra, cl.id_lote, p.id_producto, p.nombre ";
+                 
+                    
+                }   
+            
+                if($id_producto != "NULL" && $id_almacen == "NULL" && $fecha !=NULL && $fecha2 !=NULL){
+                    $sql=" SELECT a.id_almacen, al.nombre AS nombrealma, p.id_producto, p.nombre, p.caracteristicas, DATE(l.fecha_compra) AS fecha_compra, CONCAT(cl.unidad_compra,' ',(SUM(cl.cantidad))) AS cantidad_existente, ROUND((SUM(cl.cantidad) * (SELECT valor FROM unidades_de_compra WHERE cl.unidad_compra = unidad )),2) AS unidadcompra2
+                    FROM almacen_lotes a
+                    JOIN almacen al ON a.id_almacen = al.id_almacen
+                    JOIN lotes l ON a.id_lote = l.id_lote
+                    JOIN registro_lotes cl ON a.id_lote = cl.id_lote
+                    JOIN productos p ON cl.id_producto = p.id_producto
+                    WHERE p.id_producto = $id_producto AND (DATE(l.fecha_compra) BETWEEN '$fecha' AND '$fecha2')
+                    GROUP BY a.id_almacen, cl.unidad_compra, cl.id_lote, p.id_producto, p.nombre "; 
+                }
+                if($id_producto == "NULL" && $id_almacen == "NULL" && $fecha !=NULL && $fecha2 !=NULL){
+                    $sql=" SELECT a.id_almacen, al.nombre AS nombrealma, p.id_producto, p.nombre, p.caracteristicas, DATE(l.fecha_compra) AS fecha_compra, CONCAT(cl.unidad_compra,' ',(SUM(cl.cantidad))) AS cantidad_existente, ROUND((SUM(cl.cantidad) * (SELECT valor FROM unidades_de_compra WHERE cl.unidad_compra = unidad )),2) AS unidadcompra2
+                    FROM almacen_lotes a
+                    JOIN almacen al ON a.id_almacen = al.id_almacen
+                    JOIN lotes l ON a.id_lote = l.id_lote
+                    JOIN registro_lotes cl ON a.id_lote = cl.id_lote
+                    JOIN productos p ON cl.id_producto = p.id_producto
+                    WHERE  (DATE(l.fecha_compra) BETWEEN '$fecha' AND '$fecha2')
+                    GROUP BY a.id_almacen, cl.unidad_compra, cl.id_lote, p.id_producto, p.nombre ";
+                }
+                if($id_producto == "NULL" && $id_almacen != "NULL" && $fecha !=NULL && $fecha2 !=NULL){
+                    $sql=" SELECT a.id_almacen, al.nombre AS nombrealma, p.id_producto, p.nombre, p.caracteristicas, DATE(l.fecha_compra) AS fecha_compra, CONCAT(cl.unidad_compra,' ',(SUM(cl.cantidad))) AS cantidad_existente, ROUND((SUM(cl.cantidad) * (SELECT valor FROM unidades_de_compra WHERE cl.unidad_compra = unidad )),2) AS unidadcompra2
+                    FROM almacen_lotes a
+                    JOIN almacen al ON a.id_almacen = al.id_almacen
+                    JOIN lotes l ON a.id_lote = l.id_lote
+                    JOIN registro_lotes cl ON a.id_lote = cl.id_lote
+                    JOIN productos p ON cl.id_producto = p.id_producto
+                    WHERE a.id_almacen = $id_almacen AND (DATE(l.fecha_compra) BETWEEN '$fecha' AND '$fecha2')
+                    GROUP BY a.id_almacen, cl.unidad_compra, cl.id_lote, p.id_producto, p.nombre ";
+                }
+
+
+
+
+                $result = mysqli_query($conn, $sql);
+            
+                if (mysqli_num_rows($result) > 0) {
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        $pagina .=' 
+                        <tr>
+                        <td>' .$row["nombrealma"]. '</td>
+                        <td>' .$row["id_producto"]. '</td>
+                        <td>' .$row["nombre"]. '</td>                        
+                        <td>' .$row["caracteristicas"]. '</td>
+                        <td>' .$row["fecha_compra"]. '</td>
+                        <td>' .$row["cantidad_existente"]. '</td>
+                        <td>' .$row["unidadcompra2"]. '</td>
+                        </tr>
+                        ';
+                    }
+                }
+    
+                   
+        break;
+
+        
+        
+        case 7:
+            
+            $id_cliente = $_POST["id_cliente"];
+            $pagina .=' 
+                <div class="subtitle">Inventario General Productos</div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Direccion</th>
+                            <th>RFC</th>
+                            <th>Telefono</th>
+                            <th>Correo</th>
+                        </tr>
+                    </thead>
+                <tbody>
+            ';
+            if($id_cliente != "NULL"){
+                $sql=" SELECT c.id_cliente, c.nombre, c.direccion , c.rfc, c.telefono, c.correo
+                FROM clientes c 
+                WHERE c.id_cliente = $id_cliente" ;
+
+                
+                $result = mysqli_query($conn, $sql);
+                
+                if (mysqli_num_rows($result) > 0) {
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        $pagina .=' 
+                        <tr>
+                        <td>' .$row["id_cliente"]. '</td>
+                        <td>' .$row["nombre"]. '</td>
+                        <td>' .$row["direccion"]. '</td>
+                        <td>' .$row["rfc"]. '</td>
+                        <td>' .$row["telefono"]. '</td>
+                        <td>' .$row["correo"]. '</td>
+                        </tr>
+                        ';
+                        }
+                    } 
+
+            }else{
+                $sql=" SELECT c.id_cliente, c.nombre, c.direccion , c.rfc, c.telefono, c.correo
+                FROM clientes c " ;
+
+                
+                $result = mysqli_query($conn, $sql);
+                
+                if (mysqli_num_rows($result) > 0) {
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        $pagina .=' 
+                        <tr>
+                        <td>' .$row["id_cliente"]. '</td>
+                        <td>' .$row["nombre"]. '</td>
+                        <td>' .$row["direccion"]. '</td>
+                        <td>' .$row["rfc"]. '</td>
+                        <td>' .$row["telefono"]. '</td>
+                        <td>' .$row["correo"]. '</td>
+                        </tr>
+                        ';
+                        }
+                    }
+            }
+            
+            
+
+        break;
+        case 8:            
+            $id_cliente = $_POST["id_cliente"];
+            $pagina .=' 
+                <div class="subtitle">Inventario General Productos</div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre Cliente</th>
+                            <th>ID-Venta</th>
+                            <th>Fecha Venta</th>
+                            <th>IMPORTE</th>
+                        </tr>
+                    </thead>
+                <tbody>
+            ';
+
+            if($id_cliente != "NULL"){
+                $sql="SELECT 
+                c.id_cliente, c.nombre AS nombre_cliente, cp.id_venta, cp.fecha_venta, rv.precio_venta AS importe
+                FROM clientes c
+                JOIN ventas cp ON c.id_cliente = cp.id_cliente
+                JOIN registro_ventas rv ON cp.id_venta = rv.id_venta
+                WHERE c.id_cliente = $id_cliente
+                GROUP BY c.id_cliente, c.nombre, cp.id_venta, cp.fecha_venta" ;
+
+                
+
+                $result = mysqli_query($conn, $sql);
+                
+                if (mysqli_num_rows($result) > 0) {
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        $pagina .=' 
+                        <tr>
+                        <td>' .$row["id_cliente"]. '</td>
+                        <td>' .$row["nombre_cliente"]. '</td>
+                        <td>' .$row["id_venta"]. '</td>
+                        <td>' .$row["fecha_venta"]. '</td>
+                        <td>' .$row["importe"]. '</td>
+                        </tr>
+                        ';
+                        }
+                    } 
+
+            }else{
+                $sql="SELECT 
+                c.id_cliente, c.nombre AS nombre_cliente, cp.id_venta, cp.fecha_venta, rv.precio_venta AS importe
+                FROM clientes c
+                JOIN ventas cp ON c.id_cliente = cp.id_cliente
+                JOIN registro_ventas rv ON cp.id_venta = rv.id_venta 
+                GROUP BY c.id_cliente, c.nombre, cp.id_venta, cp.fecha_venta" ;
+
+                
+                $result = mysqli_query($conn, $sql);
+                
+                if (mysqli_num_rows($result) > 0) {
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        $pagina .=' 
+                        <tr>
+                        <td>' .$row["id_cliente"]. '</td>
+                        <td>' .$row["nombre_cliente"]. '</td>
+                        <td>' .$row["id_venta"]. '</td>
+                        <td>' .$row["fecha_venta"]. '</td>
+                        <td>' .$row["importe"]. '</td>
+                        </tr>
+                        ';
+                        }
+                    }
+            }
+            
+            
+
         break;
 
         default:
