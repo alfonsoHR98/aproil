@@ -23,9 +23,7 @@ include 'conn.php';
         WHERE l.cantidad_descontar > 0 and l.id_producto = $producto and l.unidad_compra = '$unidad'
         ORDER BY r.fecha_compra ASC";
         $result = $conn->query($sql);
-        echo "llegamos 1";
         if ($result->num_rows > 0) {
-          echo "llegamos 2";
           while ($row = $result->fetch_assoc()) {
               $lote_id = $row["id_lote"];
               $producto_id = $row["id_producto"];
@@ -35,21 +33,24 @@ include 'conn.php';
               echo $producto_id."\n";
               echo $unidades."\n";
               if ($cantidad > 0) {
-                echo "llegamos 3";
                   if ($lote_cantidad >= $cantidad) {
-                    echo "llegamos 4";
                     
                       // Restar la cantidad de venta al lote y salir del bucle
                       $update_sql = "UPDATE registro_lotes SET cantidad_descontar = (cantidad_descontar - $cantidad) WHERE id_lote = $lote_id AND id_producto = $producto 
                       AND unidad_compra = '$unidad'";
                       $conn->query($update_sql);
+
+                      // Registrar el movimiento en la tabla movimientos
+                      $insert_sql = "INSERT INTO movimientos_lotes (id_venta,id_producto, cantidad, id_lote, unidad) VALUES ($max_id, $producto_id,$cantidad, '$lote_id', '$unidades')";
+                      $conn->query($insert_sql);
                       $cantidad = 0;
                   } else {
-                    echo "llegamos 5";
                       // Restar la cantidad del lote y continuar con el siguiente lote
                       $update_sql = "UPDATE registro_lotes SET cantidad_descontar = 0 WHERE id_lote = $lote_id AND id_producto = $producto 
                       AND unidad_compra = '$unidad'";
                       $conn->query($update_sql);
+                      $insert_sql = "INSERT INTO movimientos_lotes (id_venta,id_producto, cantidad, id_lote, unidad) VALUES ($max_id, $producto_id,$lote_cantidad, '$lote_id', '$unidades')";
+                      $conn->query($insert_sql);
                       $cantidad -= $lote_cantidad;
                   }
               } else {
@@ -57,8 +58,10 @@ include 'conn.php';
               }
           }
       }
-        #echo "        <script languaje='JavaScript'>          alert('La venta ah sido registrada');        </script>        ";
-        #header('Location: ../../aproil/FUNCTIONS/RegistroVenta.php');
+      echo "<script language='JavaScript'>
+      alert('La venta ha sido registrada');
+      window.location.href = '../../aproil/FUNCTIONS/RegistroVenta.php';
+  </script>";
       }     
       
       
@@ -66,9 +69,8 @@ include 'conn.php';
       echo "
         <script languaje='JavaScript'>
           alert('No se concreto la venta');
-        </script>
-      ";
-      header('Location: ../../aproil/FUNCTIONS/RegistroVenta.php');
+          window.location.href = '../../aproil/FUNCTIONS/RegistroVenta.php';
+          </script>";
     }
   }
 ?>
